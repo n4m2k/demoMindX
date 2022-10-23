@@ -1,19 +1,43 @@
 import React, { useState, useEffect, useContext } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import "../CSS/main.css";
+import Loading from "./Loading";
 import { ContextSearch, CtxCart } from "../App";
-
+import { Pagination } from "@mui/material";
 const Sanpham = () => {
+  const mystyle = {
+    color: "white",
+    backgroundColor: "DodgerBlue",
+    padding: "10px",
+    fontFamily: "Arial",
+  };
   const [listDanhmuc, setListDanhmuc] = useState();
   const [listData, setListData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [productFirst, setListProductFirst] = useState([]);
   const ctxSearch = useContext(ContextSearch);
   const cart = useContext(CtxCart);
+  const navigate = useNavigate();
+  const [paginationS, setPaginationS] = useState({
+    limit: 6,
+    page: 1,
+  });
+  const [filters, setFilters] = useState({
+    page: 1,
+    limit: 6,
+  });
+  const handlePageChange = (e, page) => {
+    setFilters((prevFilters) => ({
+      ...prevFilters,
+      page: page,
+    }));
+  };
 
   useEffect(() => {
     if (ctxSearch.search == null) {
-      fetch("https://633ae702e02b9b64c61a63ba.mockapi.io/api/v1/quanao")
+      fetch(
+        `https://633ae702e02b9b64c61a63ba.mockapi.io/api/v1/quanao?page=${filters.page}&limit=${filters.limit}`
+      )
         .then((response) => {
           return response.json();
         })
@@ -37,7 +61,7 @@ const Sanpham = () => {
           setListProductFirst(data);
         });
     }
-  }, [ctxSearch.search]);
+  }, [ctxSearch.search, filters]);
 
   function unique(arr) {
     const newArr = [];
@@ -49,7 +73,7 @@ const Sanpham = () => {
     return newArr;
   }
   const tatcasanpham = () => {
-    fetch("https://633ae702e02b9b64c61a63ba.mockapi.io/api/v1/quanao")
+    fetch(`https://633ae702e02b9b64c61a63ba.mockapi.io/api/v1/quanao/`)
       .then((response) => {
         return response.json();
       })
@@ -65,20 +89,21 @@ const Sanpham = () => {
     setListData([...listProduct]);
   };
   const handleAdd = (item) => {
-    let cartTemp = [...cart.cart1];
-    let kt = 0;
-    cartTemp.map((i) => {
-      if (i.id === item.id) {
-        i.count++;
-        kt = 1;
-      }
-      return i;
-    });
-    if (kt === 0) {
-      cartTemp.push(item);
-    }
-    localStorage.setItem("cart", JSON.stringify([...cartTemp]));
-    cart.setCart([...cartTemp]);
+    // let cartTemp = [...cart.cart1];
+    // let kt = 0;
+    // cartTemp.map((i) => {
+    //   if (i.id === item.id) {
+    //     i.count++;
+    //     kt = 1;
+    //   }
+    //   return i;
+    // });
+    // if (kt === 0) {
+    //   cartTemp.push(item);
+    // }
+    // localStorage.setItem("cart", JSON.stringify([...cartTemp]));
+    // cart.setCart([...cartTemp]);
+    navigate(`/product-detail/` + item.id);
   };
   useEffect(() => {
     const listProduct = JSON.parse(localStorage.getItem("cart")) ?? [];
@@ -118,7 +143,7 @@ const Sanpham = () => {
             <div className="home_product">
               <div className="row">
                 {loading ? (
-                  <h1>Loading...</h1>
+                  <Loading></Loading>
                 ) : (
                   listData.map((item) => {
                     return (
@@ -164,6 +189,18 @@ const Sanpham = () => {
             </div>
           </div>
         </div>
+        <Pagination
+          style={{
+            display: "flex",
+            justifyContent: "right",
+            marginTop: "10px",
+          }}
+          count={Math.ceil(19 / paginationS.limit)}
+          defaultPage={paginationS.page}
+          shape="rounded"
+          size="large"
+          onChange={handlePageChange}
+        />
       </div>
     </div>
   );

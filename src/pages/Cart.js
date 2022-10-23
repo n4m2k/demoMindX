@@ -45,8 +45,8 @@ const Cart = () => {
           <div className="hero-content">
             <h1>Giỏ hàng</h1>
           </div>
-          <div className="cart_3 row">
-            <div className="cart_2 col l-5 m-5 c-12">
+          <div className="cart_3">
+            <div className="cart_2">
               {/* sp1 */}
               {cart.cart1
                 ? cart.cart1.map((item) => {
@@ -66,10 +66,23 @@ const Cart = () => {
                               <p>{item.tensp}</p>
                             </div>
                             <span
-                              style={{ color: "rgb(122, 122, 122)" }}
+                              style={{
+                                color: "rgb(122, 122, 122)",
+                                marginRight: "10px",
+                              }}
                               className="cart-id"
                             >
                               Mã sản phẩm: {item.id}
+                            </span>
+                            <span>-</span>
+                            <span
+                              style={{
+                                color: "rgb(122, 122, 122)",
+                                marginLeft: "10px",
+                              }}
+                              className="cart-id"
+                            >
+                              Kích thước: {item.size}
                             </span>
                             <div className="pro-price">
                               <h3>
@@ -137,31 +150,33 @@ const Cart = () => {
                 : ""}
             </div>
             {/* end sp */}
-          </div>
-          <div className="cart_thanhtoan col l-7 m-7 c-12">
-            <form
-              action
-              id="thanhtoan_form"
-              className="thanhtoan_form"
-              name="thanhtoan_form"
-            >
-              <div className="form_thongtin">Thông tin mua hàng</div>
-              <div className="form_thongtin_tien">
-                <p>Tổng tiền :</p>
-                <span>
-                  {new Intl.NumberFormat("vi-VN", {
-                    style: "currency",
-                    currency: "VND",
-                  }).format(tongtien())}
-                </span>
-              </div>
-              <div className="btn_form_thanhtoan">
-                <button className="btn_btn_thanhtoan">Thanh toán</button>
-              </div>
-              <a href="/index.html" className="continue">
-                Tiếp tục mua hàng
-              </a>
-            </form>
+            <div className="cart_thanhtoan">
+              <form
+                action
+                id="thanhtoan_form"
+                className="thanhtoan_form"
+                name="thanhtoan_form"
+              >
+                <div className="form_thongtin">Thông tin mua hàng</div>
+                <div className="form_thongtin_tien">
+                  <p>
+                    Tổng tiền :
+                    <span>
+                      {new Intl.NumberFormat("vi-VN", {
+                        style: "currency",
+                        currency: "VND",
+                      }).format(tongtien())}
+                    </span>
+                  </p>
+                </div>
+                <div className="btn_form_thanhtoan">
+                  <button className="btn_btn_thanhtoan">Thanh toán</button>
+                </div>
+                <a href="/index.html" className="continue">
+                  Tiếp tục mua hàng
+                </a>
+              </form>
+            </div>
           </div>
         </div>
       </div>
