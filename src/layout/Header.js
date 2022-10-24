@@ -188,7 +188,7 @@ const Header = () => {
             <div className="header_logo">
               <Link to="/">
                 <img
-                  src="https://bizweb.dktcdn.net/100/318/614/themes/667160/assets/logo.png?1655706741253"
+                  src="https://theme.hstatic.net/1000306633/1000891824/14/logo_menu_no_scroll.png?v=173"
                   className="header_logo_item header_logo_item_mobile"
                   alt="logo"
                 />

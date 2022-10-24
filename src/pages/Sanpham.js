@@ -35,9 +35,7 @@ const Sanpham = () => {
 
   useEffect(() => {
     if (ctxSearch.search == null) {
-      fetch(
-        `https://633ae702e02b9b64c61a63ba.mockapi.io/api/v1/quanao?page=${filters.page}&limit=${filters.limit}`
-      )
+      fetch(`https://633ae702e02b9b64c61a63ba.mockapi.io/api/v1/quanao/`)
         .then((response) => {
           return response.json();
         })
@@ -169,17 +167,18 @@ const Sanpham = () => {
                                 }).format(item.gia)}
                               </p>
                             </div>
+                            <div
+                              className="product-action"
+                              onClick={() => {
+                                handleAdd(item);
+                              }}
+                            >
+                              {/* <span>
+                                <i className="fa-solid fa-cart-plus" />
+                                
+                              </span> */}
+                            </div>
                           </NavLink>
-                          <div
-                            className="product-action"
-                            onClick={() => {
-                              handleAdd(item);
-                            }}
-                          >
-                            <span>
-                              <i className="fa-solid fa-cart-plus" />
-                            </span>
-                          </div>
                         </div>
                       </div>
                     );

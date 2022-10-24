@@ -81,7 +81,7 @@ const Chitietsanpham = () => {
         <div className="product_ct1">
           {/* html render */}
           <div className="product-slide">
-            <img className="product-img" src={imgProduct} alt="sp" />
+            <img className="product-img-detail" src={imgProduct} alt="sp" />
             <div className="list-product-img">
               <img
                 className="product-img-item"
@@ -120,7 +120,12 @@ const Chitietsanpham = () => {
               Mã sản phẩm:{infoProduct.id}
             </span>
             <div className="pro-price">
-              <h3>{infoProduct.gia} VNĐ</h3>
+              <h3>
+                {new Intl.NumberFormat("vi-VN", {
+                  style: "currency",
+                  currency: "VND",
+                }).format(infoProduct.gia)}
+              </h3>
             </div>
             <form
               id="add-item-form"

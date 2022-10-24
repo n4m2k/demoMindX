@@ -11,8 +11,10 @@
     justify-content: center;
     color: rgb(143, 28, 28);
 }
-.product-img{
+.product-img-detail{
   margin-left: 60px;
+  height: 450px;
+  width: auto;
 }
 
 .product-infomation{
@@ -57,9 +59,11 @@ width: 100px;
     margin-left: 10px;
 
 }
-
+.list-product-img{
+    margin-left: 50px;
+}
 .product-img-item:hover{
-    border: 1px solid red;
+    border: 3px solid red;
 }
 .swatch .swatch-header{
     
