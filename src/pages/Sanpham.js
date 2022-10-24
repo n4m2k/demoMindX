@@ -1,16 +1,12 @@
 import React, { useState, useEffect, useContext } from "react";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink, useNavigate, useSearchParams } from "react-router-dom";
 import "../CSS/main.css";
 import Loading from "./Loading";
 import { ContextSearch, CtxCart } from "../App";
 import { Pagination } from "@mui/material";
+import axios from "axios";
+
 const Sanpham = () => {
-  const mystyle = {
-    color: "white",
-    backgroundColor: "DodgerBlue",
-    padding: "10px",
-    fontFamily: "Arial",
-  };
   const [listDanhmuc, setListDanhmuc] = useState();
   const [listData, setListData] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -30,46 +26,56 @@ const Sanpham = () => {
     setFilters((prevFilters) => ({
       ...prevFilters,
       page: page,
+      limit: 6,
     }));
   };
+  useEffect(() => {
+    axios
+      .get(`https://633ae702471b8c395577e317.mockapi.io/api/v1/category`)
+      .then((res) => {
+        const data = res.data;
+        setListProductFirst(data);
+      });
+  }, []);
 
   useEffect(() => {
     if (ctxSearch.search == null) {
-      fetch(`https://633ae702e02b9b64c61a63ba.mockapi.io/api/v1/quanao/`)
-        .then((response) => {
-          return response.json();
+      axios
+        .get(`https://633ae702e02b9b64c61a63ba.mockapi.io/api/v1/quanao`, {
+          params: filters,
         })
-        .then((data) => {
+        .then((res) => {
+          const data = res.data;
           setListData(data);
           setLoading(false);
-          setListDanhmuc(unique(data));
-          setListProductFirst(data);
         });
     } else {
-      fetch(
-        `https://633ae702e02b9b64c61a63ba.mockapi.io/api/v1/quanao?tensp=${ctxSearch.search}`
-      )
-        .then((response) => {
-          return response.json();
-        })
-        .then((data) => {
+      axios
+        .get(
+          `https://633ae702e02b9b64c61a63ba.mockapi.io/api/v1/quanao?tensp=${ctxSearch.search}`,
+          {
+            params: filters,
+          }
+        )
+        .then((res) => {
+          const data = res.data;
           setListData(data);
           setLoading(false);
-          setListDanhmuc(unique(data));
-          setListProductFirst(data);
+          // setListDanhmuc(unique(data));
+          // setListProductFirst(data);
         });
     }
   }, [ctxSearch.search, filters]);
 
-  function unique(arr) {
-    const newArr = [];
-    for (var i = 0; i < arr.length; i++) {
-      if (!newArr.includes(arr[i].danhmuc)) {
-        newArr.push(arr[i].danhmuc);
-      }
-    }
-    return newArr;
-  }
+  // function unique(arr) {
+  //   const newArr = [];
+  //   for (var i = 0; i < arr.length; i++) {
+  //     if (!newArr.includes(arr[i].danhmuc)) {
+  //       newArr.push(arr[i].danhmuc);
+  //     }
+  //   }
+  //   return newArr;
+  // }
   const tatcasanpham = () => {
     fetch(`https://633ae702e02b9b64c61a63ba.mockapi.io/api/v1/quanao/`)
       .then((response) => {
@@ -78,14 +84,19 @@ const Sanpham = () => {
       .then((data) => {
         setListData(data);
         setLoading(false);
-        setListDanhmuc(unique(data));
-        setListProductFirst(data);
+        // setListDanhmuc(unique(data));
+        // setListProductFirst(data);
       });
   };
   const loadSanPham = (item) => {
-    const listProduct = productFirst.filter((data) => data.danhmuc == item);
-    setListData([...listProduct]);
+    // const listProduct = productFirst.filter((data) => data.danhmuc == item);
+    // setListData([...listProduct]);
+    setFilters((prevFilters) => ({
+      ...prevFilters,
+      danhmuc: item,
+    }));
   };
+
   const handleAdd = (item) => {
     // let cartTemp = [...cart.cart1];
     // let kt = 0;
@@ -120,15 +131,15 @@ const Sanpham = () => {
                     Tất Cả
                   </NavLink>
                 </li>
-                {listDanhmuc
-                  ? listDanhmuc.map((item) => {
+                {productFirst
+                  ? productFirst.map((item) => {
                       return (
                         <li classname="category_list_item category_item_active">
                           <NavLink
-                            onClick={() => loadSanPham(item)}
+                            onClick={() => loadSanPham(item.name)}
                             className="category_link"
                           >
-                            {item}
+                            {item.name}
                           </NavLink>
                         </li>
                       );
