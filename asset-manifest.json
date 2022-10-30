@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/n4m2k/demoMindX/static/css/main.02fd27e8.css",
+    "main.js": "/n4m2k/demoMindX/static/js/main.abfee785.js",
+    "index.html": "/n4m2k/demoMindX/index.html",
+    "main.02fd27e8.css.map": "/n4m2k/demoMindX/static/css/main.02fd27e8.css.map",
+    "main.abfee785.js.map": "/n4m2k/demoMindX/static/js/main.abfee785.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.02fd27e8.css",
+    "static/js/main.abfee785.js"
+  ]
+}
