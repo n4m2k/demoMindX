@@ -1,11 +1,32 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { ContextSearch, CtxCart } from "../App";
-
-const Header = () => {
+import Button from "@mui/material/Button";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import Signup from "../pages/Signup/Signup";
+import { Box } from "@mui/system";
+import Login from "../pages/Login/Login";
+import { useDispatch, useSelector } from "react-redux";
+import { IconButton, Menu, MenuItem } from "@mui/material";
+import { AccountCircle } from "@mui/icons-material";
+import { logout } from "../components/Auth/userSlice";
+const MODE = {
+  REGISTER: "register",
+  LOGIN: "login",
+};
+const Header = (props) => {
   const ctxSearch = useContext(ContextSearch);
   const cart = useContext(CtxCart);
   let input;
+  const dispatch = useDispatch();
+  const loggedInUser = useSelector((state) => state.user.current);
+  const isLoggedIn = !!loggedInUser.id;
+  const [open, setOpen] = useState(false);
+  const [mode, setMode] = useState(MODE.LOGIN);
+  // tạo click hien ra menu logout
+  const [anchorEl, setAnchorEl] = useState(null);
   const inputsearch = (e) => {
     ctxSearch.setSearch(e.target.value);
     input = e.target.value;
@@ -42,7 +63,24 @@ const Header = () => {
     });
     return quantity;
   };
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
 
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const handleClickUser = (e) => {
+    setAnchorEl(e.currentTarget);
+  };
+  const handleCloseMenu = () => {
+    setAnchorEl(null);
+  };
+  const handleLogoutClick = () => {
+    const action = logout();
+    dispatch(action);
+  };
   return (
     <header className="header">
       <div className="header2">
@@ -61,15 +99,27 @@ const Header = () => {
                 134 Trương Định, Hai Bà Trưng, Hà Nội
               </li>
               <li className="header__navbar_item">
-                <a href="/signup.html" className="DKDN_link">
-                  <span className="btn__DKDN">Đăng ký /</span>
-                </a>
-                <a href="/login.html" className="DKDN_link">
-                  <span className="btn__DN">Đăng Nhâp</span>
-                </a>
-                <a href="/login.html" className="DKDN_link">
+                {!isLoggedIn && (
+                  <button
+                    color="inherit"
+                    className="DKDN_link"
+                    onClick={handleClickOpen}
+                  >
+                    <span class="btn__DKDN">Đăng Ký / Đăng Nhập</span>
+                  </button>
+                )}
+                {isLoggedIn && (
+                  // <IconButton lineHeight="60px" color="inherit" >
+                  //     <AccountCircle />
+                  // </IconButton>
+                  <IconButton color="inherit" onClick={handleClickUser}>
+                    <AccountCircle />
+                  </IconButton>
+                )}
+
+                <button className="DKDN_link">
                   <span className="btn__DX">Đăng Xuất</span>
-                </a>
+                </button>
               </li>
               <li className="header__navbar_item">
                 <a
@@ -109,6 +159,64 @@ const Header = () => {
                 </a>
               </li>
             </ul>
+            <Dialog
+              disableEscapeKeyDown
+              onBackdropClick
+              open={open}
+              onClose={handleClose}
+              aria-labelledby="form-dialog-title"
+            >
+              <DialogContent>
+                {mode === MODE.REGISTER && (
+                  <>
+                    <Signup closeDialog={handleClose}></Signup>
+                    <Box textAlign="center">
+                      <Button
+                        color="primary"
+                        onClick={() => setMode(MODE.LOGIN)}
+                      >
+                        Nếu bạn đã có tài khoản. Đăng nhập tại đây
+                      </Button>
+                    </Box>
+                  </>
+                )}
+                {mode === MODE.LOGIN && (
+                  <>
+                    <Login closeDialog={handleClose}></Login>
+                    <Box textAlign="center">
+                      <Button
+                        color="primary"
+                        onClick={() => setMode(MODE.REGISTER)}
+                      >
+                        Nếu bạn chưa có tài khoản. Đăng ký tại đây
+                      </Button>
+                    </Box>
+                  </>
+                )}
+              </DialogContent>
+              <DialogActions>
+                <Button onClick={handleClose}>Cancel</Button>
+              </DialogActions>
+            </Dialog>
+            {/* menu logout */}
+            <Menu
+              anchorEl={anchorEl}
+              keepMounted
+              open={Boolean(anchorEl)}
+              onClose={handleCloseMenu}
+              anchorOrigin={{
+                vertical: "bottom",
+                horizontal: "right",
+              }}
+              transformOrigin={{
+                vertical: "top",
+                horizontal: "right",
+              }}
+              getContentAnchorEl={null}
+            >
+              <MenuItem onClick={handleCloseMenu}>My account</MenuItem>
+              <MenuItem onClick={handleLogoutClick}>Logout</MenuItem>
+            </Menu>
           </div>
           <div className="header_with_search">
             <label htmlFor="nav-mobile-input" className="nav_bar-btn">
@@ -276,9 +384,9 @@ const Header = () => {
                   </Link>
                 </li>
                 <li className="menubar_item">
-                  <a href="/gioithieu.html" className="menubar_link_a">
+                  <Link to={"/gioithieu"} className="menubar_link_a">
                     GIỚI THIỆU
-                  </a>
+                  </Link>
                 </li>
                 <li className="menubar_item menubar_posi1">
                   <Link to={"/shopnu"} className="menubar_link_a">
@@ -291,15 +399,15 @@ const Header = () => {
                   </Link>
                 </li>
                 <li className="menubar_item">
-                  <a href="/tintuc.html" className="menubar_link_a">
+                  <Link to={"/tintuc"} className="menubar_link_a">
                     TIN TỨC
-                  </a>
+                  </Link>
                 </li>
                 <li className="menubar_item">
-                  <a href="/lienhe.html" className="menubar_link_a">
+                  <Link to={"/lienhe"} className="menubar_link_a">
                     {" "}
                     LIÊN HỆ
-                  </a>
+                  </Link>
                 </li>
                 {/* <li class="nav_bar-btn"><i class="fa-solid fa-bars"></i></li> */}
               </ul>
