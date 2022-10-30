@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import { CtxCart } from "../App";
-
+import { Link, useNavigate } from "react-router-dom";
 const Cart = () => {
   const cart = useContext(CtxCart);
   // const [count, setCount] = useState(1);
@@ -37,6 +37,10 @@ const Cart = () => {
   const handleRemove = (item) => {
     cart.setCart(cart.cart1.filter((i) => i.id !== item.id));
     localStorage.setItem("cart", JSON.stringify(cart.cart1));
+  };
+  const navigate = useNavigate();
+  const handlePay = () => {
+    navigate("/checkout");
   };
   return (
     <div>
@@ -170,11 +174,13 @@ const Cart = () => {
                   </p>
                 </div>
                 <div className="btn_form_thanhtoan">
-                  <button className="btn_btn_thanhtoan">Thanh toán</button>
+                  <button className="btn_btn_thanhtoan" onClick={handlePay}>
+                    Thanh toán
+                  </button>
                 </div>
-                <a href="/index.html" className="continue">
+                <Link to="/" className="continue">
                   Tiếp tục mua hàng
-                </a>
+                </Link>
               </form>
             </div>
           </div>

@@ -95,10 +95,10 @@ input:hover{
     border-color: bisque;
 
 }
-input:focus{
+/* input:focus{
     outline: none;
     border: 2px solid rgb(143, 28, 28);
-}
+} */
 .header_cart{
     width: 150px;
     text-align: center;
@@ -352,6 +352,10 @@ font-weight: 300;
 .category_list li a:hover{
     color: #000;
 
+}
+.btn__DKDN{
+    color: #fff;
+    font-size: 12px;
 }
 .product-img{
     width: 100%;

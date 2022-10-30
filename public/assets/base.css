@@ -52,7 +52,7 @@ html {
 }
 
 .grid__column2_4:hover{
-    border : 2px solid rgb(146, 14, 14);
+    /* border : 2px solid rgb(146, 14, 14); */
 }
 
 
@@ -825,6 +825,10 @@ border-top: 1px solid #f1f2f6;
     
 }
 @media (max-width: 739px){
+    .product-img {
+        width: 100px ;
+        height: 100px ;
+    }
     .nav_bar-btn{
         display: block;
         display:flex;

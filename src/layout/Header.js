@@ -100,13 +100,9 @@ const Header = (props) => {
               </li>
               <li className="header__navbar_item">
                 {!isLoggedIn && (
-                  <button
-                    color="inherit"
-                    className="DKDN_link"
-                    onClick={handleClickOpen}
-                  >
-                    <span class="btn__DKDN">Đăng Ký / Đăng Nhập</span>
-                  </button>
+                  <Button className="DKDN_link" onClick={handleClickOpen}>
+                    <span class="btn__DKDN">Đăng nhập/Đăng ký</span>
+                  </Button>
                 )}
                 {isLoggedIn && (
                   // <IconButton lineHeight="60px" color="inherit" >
@@ -116,10 +112,6 @@ const Header = (props) => {
                     <AccountCircle />
                   </IconButton>
                 )}
-
-                <button className="DKDN_link">
-                  <span className="btn__DX">Đăng Xuất</span>
-                </button>
               </li>
               <li className="header__navbar_item">
                 <a

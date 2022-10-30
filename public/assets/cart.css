@@ -14,7 +14,7 @@
 }
 .tong_gio{
     display: flex;
-    
+    margin-right: 20px;
    justify-content: space-between;
 }
 .cart_2{
@@ -36,6 +36,7 @@
 .cart-img{
     width: 110px;
     height: 110px;
+    margin-right: 20px;
 }
 .quantity-area {
     display: flex;
@@ -91,12 +92,13 @@
 }
 .btn_btn_thanhtoan{
     width: 100%;
-    height:40px;
     margin-top: 10px;
     background-color:rgb(143, 28, 28);
     color: #fff;
     border: none;
-
+    height: 40px;
+    border-radius: 5px;
+    cursor: pointer;
 }
 .continue{
     display: flex;

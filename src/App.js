@@ -8,6 +8,10 @@ import Footer from "./layout/Footer";
 import Nam from "./pages/Nam";
 import Nu from "./pages/Nu";
 import Cart from "./pages/Cart";
+import Gioithieu from "./pages/Gioithieu";
+import Tintuc from "./pages/Tintuc";
+import Lienhe from "./pages/Lienhe";
+import Checkout from "./pages/Checkout";
 export const ContextSearch = createContext();
 export const CtxCart = createContext();
 
@@ -45,6 +49,10 @@ const App = () => {
             <Route path="/shopnam" element={<Nam />}></Route>
             <Route path="/shopnu" element={<Nu />}></Route>
             <Route path="/cart" element={<Cart />}></Route>
+            <Route path="/gioithieu" element={<Gioithieu />}></Route>
+            <Route path="/tintuc" element={<Tintuc />}></Route>
+            <Route path="/lienhe" element={<Lienhe />}></Route>
+            <Route path="/checkout" element={<Checkout />}></Route>
           </Routes>
 
           <Footer></Footer>

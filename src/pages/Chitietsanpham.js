@@ -127,7 +127,7 @@ const Chitietsanpham = () => {
                 }).format(infoProduct.gia)}
               </h3>
             </div>
-            <form
+            <div
               id="add-item-form"
               className="add-item-form"
               name="variant-form"
@@ -194,7 +194,9 @@ const Chitietsanpham = () => {
                     name="option-0"
                     value="XL"
                   />
-                  <label for="swatch-0-S">XL</label>
+                  <label className="label-size" for="swatch-0-S">
+                    XL
+                  </label>
                 </div>
               </div>
 
@@ -209,15 +211,8 @@ const Chitietsanpham = () => {
                 >
                   THÊM VÀO GIỎ
                 </button>
-                <button
-                  id="add-product-to-cart"
-                  className="hero-btn-full"
-                  type="submit"
-                >
-                  MUA HÀNG
-                </button>
               </div>
-            </form>
+            </div>
             <div className="description-section section">
               <h3>Mô tả</h3>
               <ul>
