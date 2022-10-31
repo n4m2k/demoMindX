@@ -179,7 +179,7 @@ const Checkout = () => {
                 );
               })}
             </div>
-            <div className="billing-amount underline">
+            <div className="billing-amount underline-1">
               <div className="billing-cost">
                 <h3>Tạm tính:</h3>
                 <span className="temporary-amount">
