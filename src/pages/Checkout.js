@@ -112,36 +112,6 @@ const Checkout = () => {
                   defaultValue={""}
                 />
               </div>
-              <div className="field selection">
-                <select
-                  name="calc_shipping_provinces"
-                  required
-                  className="city"
-                  id="city"
-                >
-                  <option value>Tỉnh / Thành phố</option>
-                </select>
-                <select
-                  name="calc_shipping_district"
-                  required
-                  className="district"
-                  id="district"
-                >
-                  <option value>Quận / Huyện</option>
-                </select>
-                <input
-                  className="billing_address_1"
-                  name
-                  type="hidden"
-                  defaultValue
-                />
-                <input
-                  className="billing_address_2"
-                  name
-                  type="hidden"
-                  defaultValue
-                />
-              </div>
               <h3 className="thanhtoan">Phương thức thanh toán</h3>
               <div className="field">
                 <div className="field-2">
