@@ -2,7 +2,7 @@
   "name": "baitpcuoikhoa",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://n4m2k.github.io/",
+  "homepage": "https://n4m2k.github.io/demoMindX/",
   "dependencies": {
     "@emailjs/browser": "^3.7.0",
     "@emotion/react": "^11.10.4",
